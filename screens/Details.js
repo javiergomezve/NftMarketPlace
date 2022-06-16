@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
     View,
     Text,
@@ -52,69 +52,71 @@ const Details = ({ route, navigation }) => {
     const { data } = route.params;
 
     return (
-        <SafeAreaView
-            style={{
-                flex: 1,
-            }}
-        >
-            <FocusedStatusBar
-                barStyle="dark-content"
-                backgroundColor="transparent"
-                transLucent={false}
-            />
-
-            <View
+        <Fragment>
+            <FocusedStatusBar backgroundColor={COLORS.primary} />
+            <SafeAreaView
                 style={{
-                    width: '100%',
-                    position: 'absolute',
-                    bottom: 0,
-                    paddingVertical: SIZES.font,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: 'rgba(25,255,255,0.5)',
-                    zIndex: 1,
+                    flex: 1,
                 }}
             >
-                <RecButton
-                    minWidth={170}
-                    fontSize={SIZES.large}
-                    {...SHADOWS.dark}
+                <View
+                    style={{
+                        width: '100%',
+                        position: 'absolute',
+                        bottom: 0,
+                        paddingVertical: SIZES.font,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(25,255,255,0.5)',
+                        zIndex: 1,
+                    }}
+                >
+                    <RecButton
+                        minWidth={170}
+                        fontSize={SIZES.large}
+                        {...SHADOWS.dark}
+                    />
+                </View>
+
+                <FlatList
+                    keyExtractor={item => item.id}
+                    data={data.bits}
+                    renderItem={({ item }) => <DetailsBid bid={item} />}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{
+                        paddingBottom: SIZES.extraLarge * 3,
+                    }}
+                    ListHeaderComponent={() => (
+                        <React.Fragment>
+                            <DetailsHeader
+                                data={data}
+                                navigation={navigation}
+                            />
+                            <SubInfo />
+                            <View
+                                style={{
+                                    padding: SIZES.font,
+                                }}
+                            >
+                                <DetailsDescription data={data} />
+
+                                {data.bids.length > 0 && (
+                                    <Text
+                                        style={{
+                                            fontSize: SIZES.font,
+                                            fontFamily: FONTS.semiBold,
+                                            color: COLORS.primary,
+                                        }}
+                                    >
+                                        Current bid
+                                    </Text>
+                                )}
+                            </View>
+                        </React.Fragment>
+                    )}
                 />
-            </View>
-
-            <FlatList
-                keyExtractor={item => item.id}
-                data={data.bits}
-                renderItem={({ item }) => <DetailsBid bid={item} />}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: SIZES.extraLarge * 3 }}
-                ListHeaderComponent={() => (
-                    <React.Fragment>
-                        <DetailsHeader data={data} navigation={navigation} />
-                        <SubInfo />
-                        <View
-                            style={{
-                                padding: SIZES.font,
-                            }}
-                        >
-                            <DetailsDescription data={data} />
-
-                            {data.bids.length > 0 && (
-                                <Text
-                                    style={{
-                                        fontSize: SIZES.font,
-                                        fontFamily: FONTS.semiBold,
-                                        color: COLORS.primary,
-                                    }}
-                                >
-                                    Current bid
-                                </Text>
-                            )}
-                        </View>
-                    </React.Fragment>
-                )}
-            />
-        </SafeAreaView>
+            </SafeAreaView>
+        </Fragment>
     );
 };
 

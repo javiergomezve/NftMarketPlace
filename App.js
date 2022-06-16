@@ -1,3 +1,4 @@
+import { Platform, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -11,7 +12,7 @@ const theme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        background: 'transparent',
+        background: Platform.OS === 'android' ? 'transparent' : '#fff',
     },
 };
 
@@ -27,6 +28,7 @@ const App = () => {
     if (!loaded) return null;
 
     return (
+        // <View style={{ flex: 1 }}>
         <NavigationContainer theme={theme}>
             <Stack.Navigator
                 screenOptions={{ headerShown: false }}
@@ -36,6 +38,7 @@ const App = () => {
                 <Stack.Screen name="Details" component={Details} />
             </Stack.Navigator>
         </NavigationContainer>
+        // </View>
     );
 };
 
