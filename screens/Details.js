@@ -6,7 +6,9 @@ import {
     Image,
     StatusBar,
     FlatList,
+    Platform,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import {
     CircleButton,
@@ -51,6 +53,9 @@ const DetailsHeader = ({ data, navigation }) => {
 const Details = ({ route, navigation }) => {
     const { data } = route.params;
 
+    const secondColorForGradient =
+        Platform.OS === 'ios' ? 'transparent' : '#ffffff';
+
     return (
         <Fragment>
             <FocusedStatusBar backgroundColor={COLORS.primary} />
@@ -59,7 +64,12 @@ const Details = ({ route, navigation }) => {
                     flex: 1,
                 }}
             >
-                <View
+                <LinearGradient
+                    colors={[
+                        'transparent',
+                        secondColorForGradient,
+                        secondColorForGradient,
+                    ]}
                     style={{
                         width: '100%',
                         position: 'absolute',
@@ -67,7 +77,7 @@ const Details = ({ route, navigation }) => {
                         paddingVertical: SIZES.font,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: 'rgba(25,255,255,0.5)',
+                        // backgroundColor: 'rgba(25,255,255,0.5)',
                         zIndex: 1,
                     }}
                 >
@@ -76,7 +86,7 @@ const Details = ({ route, navigation }) => {
                         fontSize={SIZES.large}
                         {...SHADOWS.dark}
                     />
-                </View>
+                </LinearGradient>
 
                 <FlatList
                     keyExtractor={item => item.id}
