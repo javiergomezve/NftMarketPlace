@@ -28,7 +28,6 @@ const App = () => {
     if (!loaded) return null;
 
     return (
-        // <View style={{ flex: 1 }}>
         <NavigationContainer theme={theme}>
             <Stack.Navigator
                 screenOptions={{ headerShown: false }}
@@ -38,7 +37,6 @@ const App = () => {
                 <Stack.Screen name="Details" component={Details} />
             </Stack.Navigator>
         </NavigationContainer>
-        // </View>
     );
 };
 

@@ -101,15 +101,26 @@ const Details = ({ route, navigation }) => {
                                 <DetailsDescription data={data} />
 
                                 {data.bids.length > 0 && (
-                                    <Text
-                                        style={{
-                                            fontSize: SIZES.font,
-                                            fontFamily: FONTS.semiBold,
-                                            color: COLORS.primary,
-                                        }}
-                                    >
-                                        Current bid
-                                    </Text>
+                                    <Fragment>
+                                        <Text
+                                            style={{
+                                                fontSize: SIZES.font,
+                                                fontFamily: FONTS.semiBold,
+                                                color: COLORS.primary,
+                                            }}
+                                        >
+                                            Current bids
+                                        </Text>
+
+                                        <FlatList
+                                            keyExtractor={item => item.id}
+                                            data={data.bids}
+                                            renderItem={({ item }) => (
+                                                <DetailsBid bid={item} />
+                                            )}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </Fragment>
                                 )}
                             </View>
                         </React.Fragment>
